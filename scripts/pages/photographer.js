@@ -8,23 +8,25 @@ const lightbox = document.querySelector("#lightbox");
 const btnClose = document.querySelector(".btn-close-lightbox");
 const btnPrev = document.querySelector(".btn-previous");
 const btnNext = document.querySelector(".btn-next");
-const sortType = document.querySelector("button.dropdown-toggle");
-const sortOptions = document.querySelector(".sort .options");
-const sortLists = document.querySelectorAll(".sort .options h4");
+const dropdownToggle = document.querySelector("button.dropdown-toggle");
+const dropdownMenu = document.querySelector(".sort .options");
+const sortLists = document.querySelectorAll(".sort .options button");
+const dropdownMenuItems = Array.from(dropdownMenu.children);
+console.log(dropdownMenuItems);
 const arrowUp = document.querySelector(".fa-chevron-up");
 const arrowDown = document.querySelector(".fa-chevron-down");
 
 let isClicked = false;
 
-function closeSortOptions() {
+function closeDropdownMenu() {
   arrowUp.style.display = "none";
   arrowDown.style.display = "block";
-  sortOptions.style.display = "none";
+  dropdownMenu.style.display = "none";
 }
-function openSortOptions() {
+function openDropdownMenu() {
   arrowUp.style.display = "block";
   arrowDown.style.display = "none";
-  sortOptions.style.display = "flex";
+  dropdownMenu.style.display = "flex";
 }
 
 //////////////ASYNC FUNCTION POUR RECUPERE LES DATAS DU PHOTOGRAPHE ET SES MEDIAS//////////
@@ -353,67 +355,46 @@ function sortByTitle(dataMedias) {
 }
 
 //trier les médias en ordre
-btnSort.addEventListener("keydown", (e) => {
-  const optionsBox = document.querySelector('.options');
-  const optionsFlex = sortOptions.style.display;
+let active = -1;
+document.addEventListener("keydown", (e) => {
+  // overflow hidden pour désactiver le scroll de la page
+  const isOpenedDropdown = dropdownMenu.style.display
+  if (isOpenedDropdown === "flex"){ 
+    body.style.overflow="hidden";
+  }else {
+    body.style.overflow="auto";
+  };
 
-  if(optionsFlex === "flex") {
-    let option;
-    if (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "Tab") {
-      // overflow hidden pour désactiver le scroll de la page
-      body.style.overflow="hidden"; 
-    
-      //   sortLists.forEach((li,i) => {
-      //   console.log(i);
-      //   const ishidden = li.classList.contains("option--hidden");
-      //   if(ishidden) console.log("hidden");
-      //   if(!ishidden) li.classList.add("option--hover"); 
-      // })
-        // console.log(i);
-        if (e.key === "ArrowUp") {
-          //effacer toutes les classes option--hover
-          sortLists.forEach((li) => {
-           li.classList.remove("option--hover");
-            })
-          option = sortLists.length - 1;
-          console.log(sortLists[option]);
-          const ishidden = sortLists[option].classList.contains("option--hidden");
-          if (!ishidden) sortLists[option].classList.add("option--hover");
-          if (ishidden) {
-            option = option-1;
-           console.log(option);
-           console.log( sortLists[option]);
-
-          }
-
-
-        }
-
-      
-      
-    } else {
-      closeSortOptions();
-      body.style.overflow="auto"; 
-    };
-    
-  } else {
-    // console.log(optionsFlex);
-    conditionOpen = e.key === "Enter"
-    if (conditionOpen) {
-      openSortOptions();
-      // option.classList.add("option--hover"); 
-      optionsBox.addEventListener("keydown", (e)=> {
-        console.log(e.target);
-      })
-    if (!conditionOpen) return;
-  }}  
+  if (e.key === "ArrowDown") {
+    if(active < dropdownMenu.children.length -1) {
+      active++
+      // if (dropdownMenuItems[active].classList.contains("option--hidden") && active < dropdownMenu.children.length -1){
+      //   active++;
+      // };
+      // if (dropdownMenuItems[active].classList.contains("option--hidden") && active === dropdownMenu.children.length-1) return 
+      console.log(dropdownMenuItems[active]);
+      dropdownMenuItems[active].focus();
+    }
+  } else if(e.key === "ArrowUp") {
+    if(active > 0) {
+      active--;
+      // if (dropdownMenuItems[active].classList.contains("option--hidden") && active > 0){
+      //   active--;
+      // };
+      // if  (dropdownMenuItems[active].classList.contains("option--hidden") && active === -1) return;
+      console.log(dropdownMenuItems[active]);
+      dropdownMenuItems[active].focus();
+    }
+  }
 })
-sortType.addEventListener("click", (e) => {
+/// trier avec clavier
+
+dropdownToggle.addEventListener("click", (e) => {
     if(!e.target) return;
   if (!isClicked) {
-    openSortOptions();
+    openDropdownMenu();
   } else {
-    closeSortOptions();
+    closeDropdownMenu();
   }
   isClicked = !isClicked;
 });
@@ -422,12 +403,12 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
   sortLists.forEach((li) => {
     li.addEventListener("click", () => {
       // console.log(li);
-      // const textType = sortType.textContent;
+      // const textType = dropdownToggle.textContent;
       // console.log(textType);
       const type = li.textContent.toLowerCase();
 
       //1.remplacer sort type = type (pop, date, titre )
-      sortType.childNodes[0].data = li.textContent;
+      dropdownToggle.childNodes[0].data = li.textContent;
       if (type === "popularité") sortByPopularity(dataMedias);
       if (type === "date") sortByDate(dataMedias);
       if (type === "titre") sortByTitle(dataMedias);
@@ -448,10 +429,10 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
       displayDataMedialEl(dataMedias);
       addEventHandlerLike(dataMedias, dataPhotographer);
       addEventHandlerOpenLightbox(dataMedias);
-      //4.fermer sortOptions
+      //4.fermer dropdownMenu
 
-      sortOptions.style.display = "none";
-      closeSortOptions();
+      dropdownMenu.style.display = "none";
+      closeDropdownMenu();
       isClicked = false;
     });
   });

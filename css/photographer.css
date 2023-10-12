@@ -405,7 +405,7 @@ form textarea {
     }
 }
 
-/* customize sorting section from scratch */
+/* customize sorting section */
 .sort {
     margin-top:12px;
     display: flex;
@@ -424,6 +424,7 @@ form textarea {
     font-size: 18px;
     font-weight: 700;
     border: none;
+    cursor: pointer;
 
     display: flex;
     justify-content: space-between;
@@ -436,15 +437,11 @@ button.dropdown-toggle .fa-chevron-up{
     display:none;
 }
 
-.sort .options{
+.dropdown .options{
     width: 130px;
     padding: 10px;
     position: absolute;
-    color: white;
-    font-size: 18px;
-    font-weight: 700;
-    border: none;
-
+    
     display: none;
     flex-direction: column;
     margin-top: 5px; 
@@ -454,21 +451,24 @@ button.dropdown-toggle .fa-chevron-up{
 
 }
 
-.sort .options h4{
+.dropdown .options button{
     padding: 15px;
     color: white;
-    /* border-radius: 5px; */
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
     text-decoration: underline;
     text-underline-offset: 5px;
+    text-align: left;
+    background-color: var(--primary);
 }
-.sort .options h4:hover{
+.dropdown .options button:hover,
+.dropdown .options button:focus
+{
     background-color: #DB8876;
+    outline: none;
 }
-
-.option--hover{
-    background-color: #DB8876; 
-}
-
 .option--hidden{
     display:none;
 }
