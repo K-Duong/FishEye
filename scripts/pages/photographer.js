@@ -8,9 +8,9 @@ const lightbox = document.querySelector("#lightbox");
 const btnClose = document.querySelector(".btn-close-lightbox");
 const btnPrev = document.querySelector(".btn-previous");
 const btnNext = document.querySelector(".btn-next");
-const sortType = document.querySelector(".type");
-const sortOptions = document.querySelector(".dropdown .options");
-const sortLists = document.querySelectorAll(".dropdown .options h4");
+const sortType = document.querySelector("button.dropdown-toggle");
+const sortOptions = document.querySelector(".sort .options");
+const sortLists = document.querySelectorAll(".sort .options h4");
 const arrowUp = document.querySelector(".fa-chevron-up");
 const arrowDown = document.querySelector(".fa-chevron-down");
 
@@ -355,13 +355,45 @@ function sortByTitle(dataMedias) {
 //trier les médias en ordre
 btnSort.addEventListener("keydown", (e) => {
   const optionsBox = document.querySelector('.options');
-  const option = document.querySelector('.options h4');
   const optionsFlex = sortOptions.style.display;
+
   if(optionsFlex === "flex") {
-    if (e.key === "ArrowUp" || e.key === "ArrowDown" ) {
-      return
+    let option;
+    if (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "Tab") {
+      // overflow hidden pour désactiver le scroll de la page
+      body.style.overflow="hidden"; 
+    
+      //   sortLists.forEach((li,i) => {
+      //   console.log(i);
+      //   const ishidden = li.classList.contains("option--hidden");
+      //   if(ishidden) console.log("hidden");
+      //   if(!ishidden) li.classList.add("option--hover"); 
+      // })
+        // console.log(i);
+        if (e.key === "ArrowUp") {
+          //effacer toutes les classes option--hover
+          sortLists.forEach((li) => {
+           li.classList.remove("option--hover");
+            })
+          option = sortLists.length - 1;
+          console.log(sortLists[option]);
+          const ishidden = sortLists[option].classList.contains("option--hidden");
+          if (!ishidden) sortLists[option].classList.add("option--hover");
+          if (ishidden) {
+            option = option-1;
+           console.log(option);
+           console.log( sortLists[option]);
+
+          }
+
+
+        }
+
+      
+      
     } else {
       closeSortOptions();
+      body.style.overflow="auto"; 
     };
     
   } else {
@@ -390,11 +422,12 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
   sortLists.forEach((li) => {
     li.addEventListener("click", () => {
       // console.log(li);
-      const textType = sortType.querySelector(".type h4");
+      // const textType = sortType.textContent;
+      // console.log(textType);
       const type = li.textContent.toLowerCase();
 
       //1.remplacer sort type = type (pop, date, titre )
-      textType.textContent = li.textContent;
+      sortType.childNodes[0].data = li.textContent;
       if (type === "popularité") sortByPopularity(dataMedias);
       if (type === "date") sortByDate(dataMedias);
       if (type === "titre") sortByTitle(dataMedias);
