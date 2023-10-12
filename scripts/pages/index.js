@@ -10,9 +10,7 @@ function displayData(photographers) {
 
 async function init() {
   try {
-    // const photographers = await getPhotographers(
-    //   "/Front-End-Fisheye/data/photographers.json"
-    // );
+ 
     const photographers = await getPhotographers(
       "data/photographers.json"
     );

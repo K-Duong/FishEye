@@ -1,28 +1,27 @@
 ///////////// DOM ELEMENTS //////////////
 const body = document.querySelector("body");
 const main = document.querySelector("#main");
-// const btnSort = document.querySelector("#media-select");
-const btnSort = document.querySelector(".sort")
+const header = document.querySelector("header");
+const btnSort = document.querySelector(".dropdown")
 const sectionCardsMedia = document.querySelector(".result-medias");
 const lightbox = document.querySelector("#lightbox");
 const btnClose = document.querySelector(".btn-close-lightbox");
 const btnPrev = document.querySelector(".btn-previous");
 const btnNext = document.querySelector(".btn-next");
-let isClicked = false;
-/////TEST SORT FROM SCRATCH//////////
 const sortType = document.querySelector(".type");
 const sortOptions = document.querySelector(".dropdown .options");
 const sortLists = document.querySelectorAll(".dropdown .options h4");
-// console.log(sortLists);
 const arrowUp = document.querySelector(".fa-chevron-up");
 const arrowDown = document.querySelector(".fa-chevron-down");
 
-function hideArrowUp() {
+let isClicked = false;
+
+function closeSortOptions() {
   arrowUp.style.display = "none";
   arrowDown.style.display = "block";
   sortOptions.style.display = "none";
 }
-function hideArrowDown() {
+function openSortOptions() {
   arrowUp.style.display = "block";
   arrowDown.style.display = "none";
   sortOptions.style.display = "flex";
@@ -36,7 +35,6 @@ async function getData(photographersJson, mediaJson) {
     const photographerFound = photographersJson.find(
       (photographer) => photographer.id === id
     );
-    // if (!photographerFound) location.href = "/Front-End-Fisheye/index.html";
     if (!photographerFound) location.href = "index.html";
 
     // chercher les médias du photographe selon son id et retourner en objet du factory
@@ -67,7 +65,6 @@ function getId() {
     return id;
   } else {
     console.error("id not found");
-    // location.href = "/Front-End-Fisheye/index.html";
     location.href = "index.html";
   }
 }
@@ -104,6 +101,7 @@ function openLightbox() {
 
   //3. désactiver le contenu arrière avec aria-hidden=true, et style overflow=hidden
   body.style.overflow = "hidden";
+  header.setAttribute("aria-hidden", "true");
   main.setAttribute("aria-hidden", "true");
   
   //focus sur le btn close
@@ -118,6 +116,7 @@ function closeLightbox() {
   lightbox.removeAttribute("aria-description");
 
   body.style.overflow = "auto";
+  header.removeAttribute("aria-hidden");
   main.removeAttribute("aria-hidden");
 }
 
@@ -354,33 +353,43 @@ function sortByTitle(dataMedias) {
 }
 
 //trier les médias en ordre
+btnSort.addEventListener("keydown", (e) => {
+  const optionsBox = document.querySelector('.options');
+  const option = document.querySelector('.options h4');
+  const optionsFlex = sortOptions.style.display;
+  if(optionsFlex === "flex") {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown" ) {
+      return
+    } else {
+      closeSortOptions();
+    };
+    
+  } else {
+    // console.log(optionsFlex);
+    conditionOpen = e.key === "Enter"
+    if (conditionOpen) {
+      openSortOptions();
+      // option.classList.add("option--hover"); 
+      optionsBox.addEventListener("keydown", (e)=> {
+        console.log(e.target);
+      })
+    if (!conditionOpen) return;
+  }}  
+})
 sortType.addEventListener("click", (e) => {
-    // console.log(e.target);
     if(!e.target) return;
   if (!isClicked) {
-    hideArrowDown();
-    // sortOptions.style.display = "flex";
+    openSortOptions();
   } else {
-    hideArrowUp();
-    // sortOptions.style.display = "none";
+    closeSortOptions();
   }
   isClicked = !isClicked;
 });
-// window.addEventListener("click", (e)=>{
-window.addEventListener("click", e => {
-    const optionsIsOpened = sortOptions.style.display;
-    // console.log(e.target);
-    // console.log(optionsIsOpened);
-    if (optionsIsOpened === "none") return;
-    //TODO: hide options sorting when clicking outside
-    // if (optionsIsOpened === "flex" ) console.log("click");
-})
-// })
+
 function addEventHandlerSort(dataMedias, dataPhotographer) {
   sortLists.forEach((li) => {
-    li.addEventListener("click", (e) => {
-        console.log(li);
-        // if (!e.target) sortOptions.style.display = "none";
+    li.addEventListener("click", () => {
+      // console.log(li);
       const textType = sortType.querySelector(".type h4");
       const type = li.textContent.toLowerCase();
 
@@ -390,69 +399,39 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
       if (type === "date") sortByDate(dataMedias);
       if (type === "titre") sortByTitle(dataMedias);
 
-      //2.update les médias en ordre
+      //2. retirer l'option depuis la liste des options
+      sortLists.forEach((el) => {
+        if (el === li) {
+          el.classList.remove("option--display");
+          el.classList.add("option--hidden");
+
+        } else {
+          el.classList.remove("option--hidden");
+          el.classList.add("option--display");
+        }
+      })
+      //3.update les médias en ordre
       sectionCardsMedia.innerHTML = "";
       displayDataMedialEl(dataMedias);
       addEventHandlerLike(dataMedias, dataPhotographer);
       addEventHandlerOpenLightbox(dataMedias);
-      //3.fermer sortOptions
+      //4.fermer sortOptions
 
       sortOptions.style.display = "none";
-      hideArrowUp();
+      closeSortOptions();
       isClicked = false;
     });
   });
 }
-// function addEventHandlerSort(dataMedias, dataPhotographer) {
-
-//   btnSort.addEventListener("change", function toSort() {
-//     if (!btnSort.value) return;
-//     if (btnSort.value === "popularite") sortByPopularity(dataMedias);
-//     if (btnSort.value === "date") {
-//       //classer en ordre décroissante
-//       dataMedias.sort((media1, media2) => {
-//         media1 = new Date(media1.date);
-//         media2 = new Date(media2.date);
-
-//         if (media1 > media2) return -1;
-//         if (media1 < media2) return 1;
-//         return 0;
-//       });
-//     }
-//     if (btnSort.value === "titre") {
-//       //classer en ordre croissante
-//       dataMedias.sort((media1, media2) => {
-//         media1 = media1.title.toLowerCase();
-//         media2 = media2.title.toLowerCase();
-
-//         if (media1 > media2) return 1;
-//         if (media1 < media2) return -1;
-//         return 0;
-//       });
-//     }
-//     sectionCardsMedia.innerHTML = "";
-//     displayDataMedialEl(dataMedias);
-//     addEventHandlerLike(dataMedias, dataPhotographer);
-//     addEventHandlerOpenLightbox(dataMedias);
-//     // addEventHandlerCloseLightbox()
-//     return dataMedias;
-//   });
-
-//   return dataMedias, dataPhotographer;
-// }
 
 /////////////////INITIALISER L'APP//////////////////
 async function init() {
   try {
-    // const photographersJson = await getPhotographers(
-    //   "/Front-End-Fisheye/data/photographers.json"
-    // );
+    
     const photographersJson = await getPhotographers(
       "data/photographers.json"
     );
-    // const mediaJson = await getMedia(
-    //   "/Front-End-Fisheye/data/photographers.json"
-    // );
+   
     const mediaJson = await getMedia(
         "data/photographers.json"
       );
@@ -464,7 +443,6 @@ async function init() {
     // média classé par défaut en ordre de leur popularité
     sortByPopularity(mediaFound);
     displayData(photographerFound, mediaFound);
-    // btnSort.focus();
 
     // getInfoPhotographerForForm(photographerFound)
     //events handler

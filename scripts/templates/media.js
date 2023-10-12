@@ -32,9 +32,12 @@ function mediaTemplate(data) {
     //description et favorite icons
     const description = document.createElement("div");
     description.classList.add("media-description");
+    //  
     const nameMedia = document.createElement("p");
     nameMedia.classList.add("media-name");
+    
     nameMedia.textContent = data.title;
+    nameMedia.setAttribute("tabindex", "0");
 
     const favorite = document.createElement("div");
     favorite.setAttribute("data-id", data.id);
@@ -50,14 +53,17 @@ function mediaTemplate(data) {
     iconFavoriteEmpty.classList.add("fa-regular", "fa-heart", "fa-heart-empty");
     // iconFavoriteEmpty.setAttribute("data-id", data.id);
     iconFavoriteEmpty.setAttribute("aria-label", "icon pas aimé");
+    iconFavoriteEmpty.setAttribute("tabindex", "0");
 
     iconFavoriteFill.classList.add("fa-solid", "fa-heart", "fa-heart-fill");
     iconFavoriteFill.setAttribute("aria-label", "icon aimé");
+    iconFavoriteFill.setAttribute("tabindex", "0");
     // iconFavoriteFill.setAttribute("data-id", data.id);
 
     const num = document.createElement("p");
     num.classList.add("number");
     num.textContent = data.likes;
+    num.setAttribute("tabindex", "0");
 
     favorite.append(num, iconFavoriteEmpty, iconFavoriteFill);
     description.append(nameMedia, favorite);

@@ -19,8 +19,9 @@ function displayModal() {
   );
 
   //3. désactiver le contenu arrière avec aria-hidden=true, et style overflow=hidden
-  main.setAttribute("aria-hidden", "true");
   body.style.overflow = "hidden";
+  header.setAttribute("aria-hidden", "true");
+  main.setAttribute("aria-hidden", "true");
 }
 
 function closeModal() {
@@ -32,8 +33,9 @@ function closeModal() {
   modal.removeAttribute("aria-labelledby");
   modal.removeAttribute("aria-description");
 
-  main.removeAttribute("aria-hidden");
   body.style.overflow = "auto";
+  header.removeAttribute("aria-hidden");
+  main.removeAttribute("aria-hidden");
 }
 
 //function vérifier la validation des inputs
