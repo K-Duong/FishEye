@@ -104,14 +104,13 @@ p{
     font-size: 18px;
     font-weight: 700;
     padding: 20px;
-    /* color: yellow */
 }
 
 .photograph-content .result-medias {
     margin-top: 25px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    column-gap: 3%;
     flex-wrap: wrap;
 }
 
@@ -267,6 +266,12 @@ textarea {
 .input-error {
     border: 2px red solid;
 
+}
+.error{
+    /* display: block; */
+    margin-bottom: 20px;
+    transform: translate(20px);
+    color: #cc0000;
 }
 
 form textarea {

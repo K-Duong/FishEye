@@ -56,7 +56,7 @@
       </div>
 
      
-      <div id="contact_modal">
+      <!-- <div id="contact_modal">
         <div class="modal">
           <header>
           <img class="btn-close" src="assets/icons/close.svg" alt="bouton fermer" onclick="closeModal()" />
@@ -65,17 +65,20 @@
             <div>
               <label for="first-name">Prénom</label>
               <input  id="first-name" type="text" />
+              <p class="error err-fname"></p>
               <label for="last-name">Nom</label>
               <input  id="last-name" type="text" />
+              <p class="error err-lname"></p>
               <label for="email">Email</label>
               <input id="email" type="email" />
+              <p class="error err-email"></p>
               <label for="message">Votre message</label>
               <textarea id="message" name="message"></textarea>
             </div>
             <button class="contact_button" aria-label="bouton contact">Envoyer</button>
           </form>
         </div>
-      </div>
+      </div> -->
       
     </main>
     <div id="lightbox">
@@ -85,6 +88,29 @@
       
       <div class="lightbox-content">
       </div>
+  </div>
+  <div id="contact_modal">
+    <div class="modal">
+      <header>
+      <img class="btn-close" src="assets/icons/close.svg" alt="bouton fermer" onclick="closeModal()" />
+      </header>
+      <form>
+        <div>
+          <label for="first-name">Prénom</label>
+          <input  id="first-name" type="text" />
+          <p class="error err-fname"></p>
+          <label for="last-name">Nom</label>
+          <input  id="last-name" type="text" />
+          <p class="error err-lname"></p>
+          <label for="email">Email</label>
+          <input id="email" type="email" />
+          <p class="error err-email"></p>
+          <label for="message">Votre message</label>
+          <textarea id="message" name="message"></textarea>
+        </div>
+        <button class="contact_button" aria-label="bouton contact">Envoyer</button>
+      </form>
+    </div>
   </div>
     <script src="scripts/data/dataPhotographers.js"></script>
     <script src="scripts/Factory/mediaFactory.js"></script>

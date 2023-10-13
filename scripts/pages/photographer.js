@@ -12,7 +12,6 @@ const dropdownToggle = document.querySelector("button.dropdown-toggle");
 const dropdownMenu = document.querySelector(".sort .options");
 const sortLists = document.querySelectorAll(".sort .options button");
 const dropdownMenuItems = Array.from(dropdownMenu.children);
-console.log(dropdownMenuItems);
 const arrowUp = document.querySelector(".fa-chevron-up");
 const arrowDown = document.querySelector(".fa-chevron-down");
 
@@ -22,11 +21,13 @@ function closeDropdownMenu() {
   arrowUp.style.display = "none";
   arrowDown.style.display = "block";
   dropdownMenu.style.display = "none";
+  body.style.overflow="auto";
 }
 function openDropdownMenu() {
   arrowUp.style.display = "block";
   arrowDown.style.display = "none";
   dropdownMenu.style.display = "flex";
+  body.style.overflow="hidden";
 }
 
 //////////////ASYNC FUNCTION POUR RECUPERE LES DATAS DU PHOTOGRAPHE ET SES MEDIAS//////////
@@ -107,8 +108,7 @@ function openLightbox() {
   main.setAttribute("aria-hidden", "true");
   
   //focus sur le btn close
-  //TODO: pas d'effet ?
-  btnClose.focus({ focusVisible: true });
+  btnClose.focus();
 }
 function closeLightbox() {
   lightbox.style.display = "none";
@@ -357,23 +357,21 @@ function sortByTitle(dataMedias) {
 //trier les médias en ordre
 let active = -1;
 document.addEventListener("keydown", (e) => {
-  // overflow hidden pour désactiver le scroll de la page
-  const isOpenedDropdown = dropdownMenu.style.display
-  if (isOpenedDropdown === "flex"){ 
-    body.style.overflow="hidden";
-  }else {
-    body.style.overflow="auto";
-  };
 
+  const isOpenedDropdown = dropdownMenu.style.display;
+  if (isOpenedDropdown !== "flex") return;
+ 
   if (e.key === "ArrowDown") {
-    if(active < dropdownMenu.children.length -1) {
-      active++
+    if(active < dropdownMenuItems.length-1) {
+      active++;
+      
       // if (dropdownMenuItems[active].classList.contains("option--hidden") && active < dropdownMenu.children.length -1){
       //   active++;
       // };
       // if (dropdownMenuItems[active].classList.contains("option--hidden") && active === dropdownMenu.children.length-1) return 
       console.log(dropdownMenuItems[active]);
-      dropdownMenuItems[active].focus();
+    } else if (active === dropdownMenuItems.length-1) {
+      active = 0;
     }
   } else if(e.key === "ArrowUp") {
     if(active > 0) {
@@ -383,9 +381,14 @@ document.addEventListener("keydown", (e) => {
       // };
       // if  (dropdownMenuItems[active].classList.contains("option--hidden") && active === -1) return;
       console.log(dropdownMenuItems[active]);
-      dropdownMenuItems[active].focus();
+      
+    } else if (active === 0) {
+      active = dropdownMenuItems.length-1;
     }
+  } else {
+    closeDropdownMenu();
   }
+  dropdownMenuItems[active].focus();
 })
 /// trier avec clavier
 
@@ -402,9 +405,6 @@ dropdownToggle.addEventListener("click", (e) => {
 function addEventHandlerSort(dataMedias, dataPhotographer) {
   sortLists.forEach((li) => {
     li.addEventListener("click", () => {
-      // console.log(li);
-      // const textType = dropdownToggle.textContent;
-      // console.log(textType);
       const type = li.textContent.toLowerCase();
 
       //1.remplacer sort type = type (pop, date, titre )
@@ -458,9 +458,7 @@ async function init() {
     sortByPopularity(mediaFound);
     displayData(photographerFound, mediaFound);
 
-    // getInfoPhotographerForForm(photographerFound)
     //events handler
-    // addEventHandlerSort(mediaFound, photographerFound);
     addEventHandlerSort(mediaFound, photographerFound);
     addEventHandlerLike(mediaFound, photographerFound);
     addEventHandlerOpenLightbox(mediaFound);

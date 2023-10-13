@@ -36,15 +36,29 @@ function closeModal() {
   body.style.overflow = "auto";
   header.removeAttribute("aria-hidden");
   main.removeAttribute("aria-hidden");
-}
+};
 
+//afficher le message d'erreur pour les inputs invalid
+function displayError(elDom, message){
+  const inputEl = document.querySelector(elDom);
+  ///1.display block message d'erreur
+  inputEl.style.display = "block";
+  ///2.afficher le contenu du message
+  inputEl.innerHTML= message
+}
+function closeError(elDom){
+  const inputEl = document.querySelector(elDom);
+  inputEl.style.display = "none";
+}
 //function vérifier la validation des inputs
-function checkInputValid(inp, condition) {
+function checkInputValid(inp, condition, pError, message) {
   if (condition) {
     inp.classList.remove("input-error");
+    closeError(pError);
     return true;
   } else {
     inp.classList.add("input-error");
+    displayError(pError, message)
     return false;
   }
 }
@@ -53,23 +67,27 @@ function getCondition(input, regexFormat) {
   const val = input.value.trim();
   return val.length > 0 && val.match(regexFormat) ? true : false;
 }
-function checkNameValid(inp) {
+function checkFNameValid() {
   const nameFormat = /^[a-zA-Z- ]*$/;
-  const condition = getCondition(inp, nameFormat);
-  return checkInputValid(inp, condition);
+  const condition = getCondition(inpFName, nameFormat);
+  return checkInputValid(inpFName, condition, ".err-fname","Veuillez entrer 2 lettres ou plus.");
+}
+function checkLNameValid() {
+  const nameFormat = /^[a-zA-Z- ]*$/;
+  const condition = getCondition(inpLName, nameFormat);
+  return checkInputValid(inpLName, condition, ".err-lname","Veuillez entrer 2 lettres ou plus.");
 }
 function checkMailValid() {
   const mailFormat = /[a-z0-9-._]+@[a-z0-9-_]+.[a-z]{2,4}/;
   const condition = getCondition(inpMail, mailFormat);
-  return checkInputValid(inpMail, condition);
+  return checkInputValid(inpMail, condition,".err-email", "Email doit être sous forme abc@xyz.com");
 }
-/////Events handler/////
-//check 1: quand l'utilisateur saisi une donnée
-const forName = [inpFName, inpLName];
-forName.forEach((el) => {
-  el.addEventListener("change", () => {
-    checkNameValid(el);
-  });
+
+inpFName.addEventListener("change", () => {
+  checkFNameValid();
+});
+inpLName.addEventListener("change", () => {
+  checkLNameValid();
 });
 inpMail.addEventListener("change", () => {
   checkMailValid();
@@ -78,8 +96,8 @@ inpMail.addEventListener("change", () => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputs = [
-    checkNameValid(inpFName),
-    checkNameValid(inpLName),
+    checkFNameValid(),
+    checkLNameValid(),
     checkMailValid(),
   ];
   // console.log(inputs);
