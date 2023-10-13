@@ -287,10 +287,13 @@ function addEventListenerArrowRight(dataMedias) {
   });
 }
 
+
 function addEventHandlerLike(dataMedias, dataPhotographer) {
   const favorites = document.querySelectorAll(".favorite");
+  
 
   favorites.forEach((fav) => {
+    const btnHeart = fav.querySelector("button");
     const id = Number(fav.dataset.id);
     const mediaFound = findMediaEL(dataMedias, id);
     const mediaPreview = mediaTemplate(mediaFound);
@@ -306,12 +309,14 @@ function addEventHandlerLike(dataMedias, dataPhotographer) {
         likes--;
         dataPhotographer.sumOfLikes--;
         mediaFound.likes = likes;
+        btnHeart.setAttribute("aria-label", "pas encore aimé");
       }
 
       if (!mediaFound.isLiked) {
         likes++;
         dataPhotographer.sumOfLikes++;
         mediaFound.likes = likes;
+        btnHeart.setAttribute("aria-label", "déjà aimer");
       }
       mediaFound.isLiked = !mediaFound.isLiked;
       num.textContent = mediaFound.likes;
@@ -319,6 +324,7 @@ function addEventHandlerLike(dataMedias, dataPhotographer) {
       mediaPreview.checkIsLiked();
       //update le total des likes
       displaySumLikes(dataPhotographer);
+      console.log(btnHeart);
     });
   });
 }
@@ -357,38 +363,32 @@ function sortByTitle(dataMedias) {
 //trier les médias en ordre
 let active = -1;
 document.addEventListener("keydown", (e) => {
-
+  // const isHidden = dropdownMenuItems[active] ? dropdownMenuItems[active].classList.contains("option--hidden") : 0;
+  
   const isOpenedDropdown = dropdownMenu.style.display;
+  const length = dropdownMenuItems.length-1;
+  // console.log(length);
   if (isOpenedDropdown !== "flex") return;
  
   if (e.key === "ArrowDown") {
-    if(active < dropdownMenuItems.length-1) {
+    if(active < length) {
       active++;
-      
-      // if (dropdownMenuItems[active].classList.contains("option--hidden") && active < dropdownMenu.children.length -1){
-      //   active++;
-      // };
-      // if (dropdownMenuItems[active].classList.contains("option--hidden") && active === dropdownMenu.children.length-1) return 
-      console.log(dropdownMenuItems[active]);
-    } else if (active === dropdownMenuItems.length-1) {
+    } else if(active === length) {
       active = 0;
     }
+    // console.log(active);
+    dropdownMenuItems[active].focus();
   } else if(e.key === "ArrowUp") {
     if(active > 0) {
       active--;
-      // if (dropdownMenuItems[active].classList.contains("option--hidden") && active > 0){
-      //   active--;
-      // };
-      // if  (dropdownMenuItems[active].classList.contains("option--hidden") && active === -1) return;
-      console.log(dropdownMenuItems[active]);
-      
     } else if (active === 0) {
       active = dropdownMenuItems.length-1;
     }
+    dropdownMenuItems[active].focus();
   } else {
     closeDropdownMenu();
   }
-  dropdownMenuItems[active].focus();
+  
 })
 /// trier avec clavier
 
@@ -415,13 +415,18 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
 
       //2. retirer l'option depuis la liste des options
       sortLists.forEach((el) => {
+        const id = el.id;
+        console.log(id);
         if (el === li) {
           el.classList.remove("option--display");
           el.classList.add("option--hidden");
+          el.setAttribute("aria-selected","true");
+          dropdownToggle.setAttribute("aria-labelledby", `listboxLabel ${id}`)
 
         } else {
           el.classList.remove("option--hidden");
           el.classList.add("option--display");
+          el.setAttribute("aria-selected","false");
         }
       })
       //3.update les médias en ordre

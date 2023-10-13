@@ -43,21 +43,24 @@ function mediaTemplate(data) {
     favorite.setAttribute("data-id", data.id);
     favorite.classList.add("favorite");
 
-    const icons = document.createElement("div");
+    // const icons = document.createElement("div");
+    // const icons = document.createElement("button");
     
-    icons.classList.add("icons-heart");
+    // icons.classList.add("icons-heart");
+    const btnIcon = document.createElement("button");
+    btnIcon.setAttribute("aria-label", "pas encore aimé");
 
     const iconFavoriteFill = document.createElement("i");
     const iconFavoriteEmpty = document.createElement("i");
 
     iconFavoriteEmpty.classList.add("fa-regular", "fa-heart", "fa-heart-empty");
     // iconFavoriteEmpty.setAttribute("data-id", data.id);
-    iconFavoriteEmpty.setAttribute("aria-label", "icon pas aimé");
-    iconFavoriteEmpty.setAttribute("tabindex", "0");
+    // iconFavoriteEmpty.setAttribute("aria-label", "icon pas aimé");
+    // iconFavoriteEmpty.setAttribute("tabindex", "0");
 
     iconFavoriteFill.classList.add("fa-solid", "fa-heart", "fa-heart-fill");
-    iconFavoriteFill.setAttribute("aria-label", "icon aimé");
-    iconFavoriteFill.setAttribute("tabindex", "0");
+    // iconFavoriteFill.setAttribute("aria-label", "icon aimé");
+    // iconFavoriteFill.setAttribute("tabindex", "0");
     // iconFavoriteFill.setAttribute("data-id", data.id);
 
     const num = document.createElement("p");
@@ -65,7 +68,8 @@ function mediaTemplate(data) {
     num.textContent = data.likes;
     num.setAttribute("tabindex", "0");
 
-    favorite.append(num, iconFavoriteEmpty, iconFavoriteFill);
+    btnIcon.append(iconFavoriteEmpty, iconFavoriteFill);
+    favorite.append(num, btnIcon);
     description.append(nameMedia, favorite);
     article.append(a, description);
 

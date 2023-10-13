@@ -151,26 +151,18 @@ p{
     font-size: 16px;
     font-weight: 400;
 }
-.favorite  i {
+.favorite button {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
     color: var(--primary);
-    cursor: pointer;
 }
 
  .fa-solid.fa-heart-fill {
     display: none;
-    /* position: absolute; */
-    /* opacity: 0; */
-    /* transform : opacity .5s; */
+   
 }
 
-/* .icons-heart .fa-solid:hover {
-    opacity: 1;
-} */
-
-/* .icons-heart .fa-regular {
-    opacity: 1;
-    transform : opacity .5s;
-} */
 
 .photograph-content .result-medias .media-infos img,
 .photograph-content .result-medias .media-infos video

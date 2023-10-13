@@ -30,24 +30,26 @@
       <div class="photograph-content">
 
         <div class="sort">
-          <h3>Trier par</h3>
-          <div class="dropdown"  aria-label="trier les médias en ordre suivant">
-            <!-- <div class="type" >
-              <h4>Popularité</h4>
-              <div class="chevrons">
-              <i class="fa-solid fa-chevron-down"></i>
-              <i class="fa-solid fa-chevron-up"></i>
-              </div>
-            </div> -->
-            <button type ="button" class="dropdown-toggle">Popularité <i class="fa-solid fa-chevron-down"></i>
-              <i class="fa-solid fa-chevron-up"></i> </button>
-            <div class="options" tabindex="0">
-              <button class="option--hidden">Popularité</button>
-              <button>Date</button>
-              <button>Titre</button>
+          <h3 id="listboxLabel">Trier par</h3>
+          <div class="dropdown"  >
+            
+            <button role="listbox"
+                    aria-labelledby="listboxLabel listbox-1"
+                    
+                    type ="button" 
+                    class="dropdown-toggle">
+                    Popularité 
+                    <i class="fa-solid fa-chevron-down"></i>
+                    <i class="fa-solid fa-chevron-up"></i> 
+            </button>
+            <div role="list" 
+                class="options" 
+               >
+              <button role="option" id="listbox-1" aria-selected="true" class="option--hidden">Popularité</button>
+              <button role="option" id="listbox-2">Date</button>
+              <button role="option" id="listbox-3">Titre</button>
             </div>
           </div>
-
         </div>
 
         <div class="result-medias">
@@ -97,7 +99,7 @@
       <form>
         <div>
           <label for="first-name">Prénom</label>
-          <input  id="first-name" type="text" />
+          <input  id="first-name" type="text"  />
           <p class="error err-fname"></p>
           <label for="last-name">Nom</label>
           <input  id="last-name" type="text" />
