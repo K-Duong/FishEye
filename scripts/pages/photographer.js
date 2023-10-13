@@ -22,12 +22,14 @@ function closeDropdownMenu() {
   arrowDown.style.display = "block";
   dropdownMenu.style.display = "none";
   body.style.overflow="auto";
+  dropdownToggle.setAttribute("aria-expanded", "false");
 }
 function openDropdownMenu() {
   arrowUp.style.display = "block";
   arrowDown.style.display = "none";
   dropdownMenu.style.display = "flex";
   body.style.overflow="hidden";
+  dropdownToggle.setAttribute("aria-expanded", "true");
 }
 
 //////////////ASYNC FUNCTION POUR RECUPERE LES DATAS DU PHOTOGRAPHE ET SES MEDIAS//////////
@@ -96,6 +98,7 @@ function openLightbox() {
   //2. ajouter l'attribut role=dialogue in lightbox
   lightbox.setAttribute("role", "dialog");
   lightbox.setAttribute("aria-hidden", "false");
+  //FIXME: revoir le role de aria-labelledby
   lightbox.setAttribute("aria-labelledby", "lightbox");
   lightbox.setAttribute(
     "aria-description",
@@ -421,7 +424,10 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
           el.classList.remove("option--display");
           el.classList.add("option--hidden");
           el.setAttribute("aria-selected","true");
-          dropdownToggle.setAttribute("aria-labelledby", `listboxLabel ${id}`)
+          dropdownToggle.setAttribute("aria-labelledby", `listboxLabel ${id}`);
+          dropdownToggle.setAttribute("aria-activedescendant", `${id}`);
+          dropdownToggle.setAttribute("aria-expanded", "true");
+
 
         } else {
           el.classList.remove("option--hidden");

@@ -33,16 +33,17 @@
           <h3 id="listboxLabel">Trier par</h3>
           <div class="dropdown"  >
             
-            <button role="listbox"
+            <button role="combobox"
                     aria-labelledby="listboxLabel listbox-1"
-                    
+                    aria-activedescendant ="listbox-1"
+                    aria-expanded="false"
                     type ="button" 
                     class="dropdown-toggle">
                     Popularité 
                     <i class="fa-solid fa-chevron-down"></i>
                     <i class="fa-solid fa-chevron-up"></i> 
             </button>
-            <div role="list" 
+            <div role="listbox" 
                 class="options" 
                >
               <button role="option" id="listbox-1" aria-selected="true" class="option--hidden">Popularité</button>
