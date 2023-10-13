@@ -99,14 +99,14 @@
       <form>
         <div>
           <label for="first-name">Prénom</label>
-          <input  id="first-name" type="text"  />
-          <p class="error err-fname"></p>
+          <input  id="first-name" aria-describedby="err-message-fname" type="text"  />
+          <p id="err-message-fname" class="error err-fname"></p>
           <label for="last-name">Nom</label>
-          <input  id="last-name" type="text" />
-          <p class="error err-lname"></p>
+          <input id="last-name" aria-describedby="err-message-lname" type="text" />
+          <p id="err-message-lname" class="error err-lname"></p>
           <label for="email">Email</label>
-          <input id="email" type="email" />
-          <p class="error err-email"></p>
+          <input id="email" aria-describedby="err-message-email"type="email" />
+          <p id="err-message-email" class="error err-email"></p>
           <label for="message">Votre message</label>
           <textarea id="message" name="message"></textarea>
         </div>
