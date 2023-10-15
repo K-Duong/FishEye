@@ -18,7 +18,6 @@ async function init() {
     displayData(photographers);
     const article = document.querySelector("article");
     console.log("article", article);
-    article.focus({ focusVisible: true });
     
 
   } catch (err) {
