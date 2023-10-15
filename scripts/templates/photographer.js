@@ -26,6 +26,7 @@ function photographerTemplate(data) {
     const p2 = document.createElement("p");
 
     descriptionBox.classList.add("description");
+    descriptionBox.setAttribute("tabindex", "0")
     h3.classList.add("country");
     p1.classList.add("tagline");
     p2.classList.add("price");
