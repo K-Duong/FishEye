@@ -210,7 +210,7 @@ function playVideo() {
 //Ouvrir le lightbox
 function addEventHandlerOpenLightbox(dataMedias) {
   const linkLightbox = document.querySelectorAll(".link-lightbox");
-  console.log(dataMedias);
+  // console.log(dataMedias);
 
   linkLightbox.forEach((link) => {
     link.addEventListener("click", function (e) {
@@ -408,7 +408,7 @@ dropdownToggle.addEventListener("click", (e) => {
 function addEventHandlerSort(dataMedias, dataPhotographer) {
   sortLists.forEach((li) => {
     li.addEventListener("click", () => {
-      const type = li.textContent.toLowerCase();
+      const type = li.textContent.trim().toLowerCase();
 
       //1.remplacer sort type = type (pop, date, titre )
       dropdownToggle.childNodes[0].data = li.textContent;
@@ -419,7 +419,7 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
       //2. retirer l'option depuis la liste des options
       sortLists.forEach((el) => {
         const id = el.id;
-        console.log(id);
+        // console.log(id);
         if (el === li) {
           el.classList.remove("option--display");
           el.classList.add("option--hidden");
