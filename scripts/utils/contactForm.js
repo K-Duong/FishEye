@@ -70,12 +70,12 @@ function getCondition(input, regexFormat) {
 function checkFNameValid() {
   const nameFormat = /^[a-zA-Z- ]*$/;
   const condition = getCondition(inpFName, nameFormat);
-  return checkInputValid(inpFName, condition, ".err-fname","Veuillez entrer 2 lettres ou plus.");
+  return checkInputValid(inpFName, condition, ".err-fname","Veuillez entrer votre prénom avec au moins une lettre.");
 }
 function checkLNameValid() {
   const nameFormat = /^[a-zA-Z- ]*$/;
   const condition = getCondition(inpLName, nameFormat);
-  return checkInputValid(inpLName, condition, ".err-lname","Veuillez entrer 2 lettres ou plus.");
+  return checkInputValid(inpLName, condition, ".err-lname","Veuillez entrer entrer votre nom avec au moins une lettre.");
 }
 function checkMailValid() {
   const mailFormat = /[a-z0-9-._]+@[a-z0-9-_]+.[a-z]{2,4}/;

@@ -132,6 +132,8 @@ function goToPrevMedia(dataMedias) {
   const idMedia = Number(target.dataset.id);
   //TODO: if idMedia = NaN?
   const indexFound = findIndexEL(dataMedias, idMedia);
+  console.log("media found", dataMedias[indexFound].type);
+
 
   prevIndex = indexFound - 1;
   if (prevIndex === -1) {
@@ -149,9 +151,10 @@ function goToNextMedia(dataMedias) {
   const target = document.querySelector(".lightbox-media");
   const idMedia = Number(target.dataset.id);
   // console.log(idMedia);
+  
 
   const indexFound = findIndexEL(dataMedias, idMedia);
-  //   displayNewMediaInLightbox("next", indexFound, dataMedias);
+  console.log("media found", dataMedias[indexFound].type);
 
   nextIndex = indexFound + 1;
   if (nextIndex === dataMedias.length) {
@@ -218,7 +221,7 @@ function addEventHandlerOpenLightbox(dataMedias) {
       const idMedia = Number(target.dataset.id);
 
       const mediaFound = findMediaEL(dataMedias, idMedia);
-      console.log("media found", mediaFound);
+      // console.log("media found", mediaFound);
 
       const mediaPreview = mediaTemplate(mediaFound);
       mediaPreview.addElLightbox();
@@ -419,7 +422,6 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
       //2. retirer l'option depuis la liste des options
       sortLists.forEach((el) => {
         const id = el.id;
-        // console.log(id);
         if (el === li) {
           el.classList.remove("option--display");
           el.classList.add("option--hidden");
@@ -440,14 +442,25 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
       displayDataMedialEl(dataMedias);
       addEventHandlerLike(dataMedias, dataPhotographer);
       addEventHandlerOpenLightbox(dataMedias);
+      
       //4.fermer dropdownMenu
-
-      dropdownMenu.style.display = "none";
       closeDropdownMenu();
       isClicked = false;
     });
   });
 }
+
+// fermer le dropdown options quand utilisateur clique à l'extérieur de dropdown zone
+document.addEventListener('click', (e)=>{
+  const insideDropdown = e.target.closest(".dropdown");
+  if(!insideDropdown && dropdownMenu.style.display === "flex") {
+    closeDropdownMenu(); 
+    isClicked=false;
+  }else{
+    return;
+  };
+
+})
 
 /////////////////INITIALISER L'APP//////////////////
 async function init() {
