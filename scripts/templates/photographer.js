@@ -77,7 +77,7 @@ function photographerTemplate(data) {
   function cardPrice() {
     const main = document.querySelector("#main");
 
-    const cardPrice = document.createElement("div");
+    const cardPrice = document.createElement("section");
     cardPrice.classList.add("card-price");
 
     const sumPrice = document.createElement("h3");

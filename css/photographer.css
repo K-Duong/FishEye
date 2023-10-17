@@ -52,6 +52,10 @@ p{
     color: var(--secondary);
     font-size: 64px;
     font-weight: 400;
+    margin-inline-end: 0;
+    /* TODO: revoir le width du h1 */
+    max-width: 300px;
+    
 }
 
 .photograph-country {
@@ -323,6 +327,7 @@ form textarea {
 #contact_modal {
     background: rgb(0, 0, 0, .5);
     z-index: 50;
+    overflow: auto;
 }
 
 .lightbox-content {

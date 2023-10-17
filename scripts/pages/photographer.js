@@ -2,7 +2,7 @@
 const body = document.querySelector("body");
 const main = document.querySelector("#main");
 const header = document.querySelector("header");
-const btnSort = document.querySelector(".dropdown")
+const btnSort = document.querySelector(".dropdown");
 const sectionCardsMedia = document.querySelector(".result-medias");
 const lightbox = document.querySelector("#lightbox");
 const btnClose = document.querySelector(".btn-close-lightbox");
@@ -17,20 +17,7 @@ const arrowDown = document.querySelector(".fa-chevron-down");
 
 let isClicked = false;
 
-function closeDropdownMenu() {
-  arrowUp.style.display = "none";
-  arrowDown.style.display = "block";
-  dropdownMenu.style.display = "none";
-  body.style.overflow="auto";
-  dropdownToggle.setAttribute("aria-expanded", "false");
-}
-function openDropdownMenu() {
-  arrowUp.style.display = "block";
-  arrowDown.style.display = "none";
-  dropdownMenu.style.display = "flex";
-  body.style.overflow="hidden";
-  dropdownToggle.setAttribute("aria-expanded", "true");
-}
+
 
 //////////////ASYNC FUNCTION POUR RECUPERE LES DATAS DU PHOTOGRAPHE ET SES MEDIAS//////////
 async function getData(photographersJson, mediaJson) {
@@ -98,7 +85,6 @@ function openLightbox() {
   //2. ajouter l'attribut role=dialogue in lightbox
   lightbox.setAttribute("role", "dialog");
   lightbox.setAttribute("aria-hidden", "false");
-  //FIXME: revoir le role de aria-labelledby
   lightbox.setAttribute("aria-labelledby", "lightbox");
   lightbox.setAttribute(
     "aria-description",
@@ -109,7 +95,7 @@ function openLightbox() {
   body.style.overflow = "hidden";
   header.setAttribute("aria-hidden", "true");
   main.setAttribute("aria-hidden", "true");
-  
+
   //focus sur le btn close
   btnClose.focus();
 }
@@ -134,7 +120,6 @@ function goToPrevMedia(dataMedias) {
   const indexFound = findIndexEL(dataMedias, idMedia);
   console.log("media found", dataMedias[indexFound].type);
 
-
   prevIndex = indexFound - 1;
   if (prevIndex === -1) {
     prevIndex = dataMedias.length - 1;
@@ -151,11 +136,8 @@ function goToNextMedia(dataMedias) {
   const target = document.querySelector(".lightbox-media");
   const idMedia = Number(target.dataset.id);
   // console.log(idMedia);
-  
 
   const indexFound = findIndexEL(dataMedias, idMedia);
-  console.log("media found", dataMedias[indexFound].type);
-
   nextIndex = indexFound + 1;
   if (nextIndex === dataMedias.length) {
     nextIndex = 0;
@@ -207,6 +189,21 @@ function playVideo() {
       }
     }
   });
+}
+
+function closeDropdownMenu() {
+  arrowUp.style.display = "none";
+  arrowDown.style.display = "block";
+  dropdownMenu.style.display = "none";
+  body.style.overflow = "auto";
+  dropdownToggle.setAttribute("aria-expanded", "false");
+}
+function openDropdownMenu() {
+  arrowUp.style.display = "block";
+  arrowDown.style.display = "none";
+  dropdownMenu.style.display = "flex";
+  body.style.overflow = "hidden";
+  dropdownToggle.setAttribute("aria-expanded", "true");
 }
 
 //////////////// ADD EVENTLISTENERS ////////////////////
@@ -293,10 +290,8 @@ function addEventListenerArrowRight(dataMedias) {
   });
 }
 
-
 function addEventHandlerLike(dataMedias, dataPhotographer) {
   const favorites = document.querySelectorAll(".favorite");
-  
 
   favorites.forEach((fav) => {
     const btnHeart = fav.querySelector("button");
@@ -366,40 +361,39 @@ function sortByTitle(dataMedias) {
   });
 }
 
-//trier les médias en ordre
+//trier les médias en ordre avec le clavier
 let active = -1;
 document.addEventListener("keydown", (e) => {
   // const isHidden = dropdownMenuItems[active] ? dropdownMenuItems[active].classList.contains("option--hidden") : 0;
-  
+
   const isOpenedDropdown = dropdownMenu.style.display;
-  const length = dropdownMenuItems.length-1;
+  const length = dropdownMenuItems.length - 1;
   // console.log(length);
   if (isOpenedDropdown !== "flex") return;
- 
+
   if (e.key === "ArrowDown") {
-    if(active < length) {
+    if (active < length) {
       active++;
-    } else if(active === length) {
+    } else if (active === length) {
       active = 0;
     }
     // console.log(active);
     dropdownMenuItems[active].focus();
-  } else if(e.key === "ArrowUp") {
-    if(active > 0) {
+  } else if (e.key === "ArrowUp") {
+    if (active > 0) {
       active--;
     } else if (active === 0) {
-      active = dropdownMenuItems.length-1;
+      active = dropdownMenuItems.length - 1;
     }
     dropdownMenuItems[active].focus();
   } else {
     closeDropdownMenu();
   }
-  
-})
+});
 /// trier avec clavier
 
 dropdownToggle.addEventListener("click", (e) => {
-    if(!e.target) return;
+  if (!e.target) return;
   if (!isClicked) {
     openDropdownMenu();
   } else {
@@ -425,24 +419,22 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
         if (el === li) {
           el.classList.remove("option--display");
           el.classList.add("option--hidden");
-          el.setAttribute("aria-selected","true");
+          el.setAttribute("aria-selected", "true");
           dropdownToggle.setAttribute("aria-labelledby", `listboxLabel ${id}`);
           dropdownToggle.setAttribute("aria-activedescendant", `${id}`);
           dropdownToggle.setAttribute("aria-expanded", "true");
-
-
         } else {
           el.classList.remove("option--hidden");
           el.classList.add("option--display");
-          el.setAttribute("aria-selected","false");
+          el.setAttribute("aria-selected", "false");
         }
-      })
+      });
       //3.update les médias en ordre
       sectionCardsMedia.innerHTML = "";
       displayDataMedialEl(dataMedias);
       addEventHandlerLike(dataMedias, dataPhotographer);
       addEventHandlerOpenLightbox(dataMedias);
-      
+
       //4.fermer dropdownMenu
       closeDropdownMenu();
       isClicked = false;
@@ -451,33 +443,30 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
 }
 
 // fermer le dropdown options quand utilisateur clique à l'extérieur de dropdown zone
-document.addEventListener('click', (e)=>{
+document.addEventListener("click", (e) => {
   const insideDropdown = e.target.closest(".dropdown");
-  if(!insideDropdown && dropdownMenu.style.display === "flex") {
-    closeDropdownMenu(); 
-    isClicked=false;
-  }else{
+  if (!insideDropdown && dropdownMenu.style.display === "flex") {
+    closeDropdownMenu();
+    isClicked = false;
+  } else {
     return;
-  };
-
-})
+  }
+});
 
 /////////////////INITIALISER L'APP//////////////////
 async function init() {
   try {
-    
-    const photographersJson = await getPhotographers(
-      "data/photographers.json"
-    );
-   
-    const mediaJson = await getMedia(
-        "data/photographers.json"
-      );
+    const photographersJson = await getPhotographers("data/photographers.json");
+
+    const mediaJson = await getMedia("data/photographers.json");
 
     const { photographerFound, mediaFound } = await getData(
       photographersJson,
       mediaJson
     );
+
+    console.log(photographerFound);
+    console.log(mediaFound);
     // média classé par défaut en ordre de leur popularité
     sortByPopularity(mediaFound);
     displayData(photographerFound, mediaFound);

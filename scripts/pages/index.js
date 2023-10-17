@@ -16,9 +16,6 @@ async function init() {
     );
     console.log(photographers);
     displayData(photographers);
-    const article = document.querySelector("article");
-    console.log("article", article);
-    
 
   } catch (err) {
     console.error(err);
@@ -26,11 +23,4 @@ async function init() {
 }
 init();
 
-////EventHandler Accessibility///
-// window.addEventListener("keydown", (e)=> {
-//     console.log(e.key);
-//     const key = e.key;
 
-//     // if()             dfqs
-
-// })

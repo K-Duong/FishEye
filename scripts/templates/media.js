@@ -10,7 +10,7 @@ function mediaTemplate(data) {
     const a = document.createElement("a");
     a.setAttribute("href", "#lightbox");
     a.setAttribute("data-id", data.id);
-    a.setAttribute("aria-label", `lien vers ${data.title}`);
+    a.setAttribute("aria-label", `ouvrir ${data.title} en plein écran`);
     a.classList.add("link-lightbox");
 
     if (data.type === "video") {

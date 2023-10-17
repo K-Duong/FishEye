@@ -68,14 +68,11 @@ function factory(mediaObj) {
         type = "image";
         const image = new Image(mediaObj);
         image._type = type;
-        // console.log(image.imageContent);
         return image;
     } 
     if (mediaObj.video && mediaObj.video.length > 0) {
         type = "video";
         const video = new Video(mediaObj);
-        // console.log(mediaObj);
-        // console.log(video.videoContent);
         video._type = type;
         return video;
     } 
