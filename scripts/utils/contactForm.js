@@ -8,8 +8,10 @@ const inpMail = document.querySelector("#email");
 const message = document.querySelector("#message");
 
 function displayModal() {
+  init();
   modal.style.display = "flex";
   inpFName.focus();
+
   modal.setAttribute("role", "dialog");
   modal.setAttribute("aria-hidden", "false");
   modal.setAttribute("aria-labelledby", "modal");
@@ -123,3 +125,12 @@ window.addEventListener("keydown", (e) => {
         if (modal.style.display = "flex") closeModal();
     }
 })
+
+//reset form
+function init() {
+    form.reset();
+    const messagesError = document.querySelectorAll('form div p');
+    inputs.forEach(inp=>inp.classList.remove("input-error"));
+    messagesError.forEach(mes => mes.style.display="none")
+}
+init();
