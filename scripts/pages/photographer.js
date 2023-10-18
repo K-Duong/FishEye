@@ -9,11 +9,12 @@ const btnClose = document.querySelector(".btn-close-lightbox");
 const btnPrev = document.querySelector(".btn-previous");
 const btnNext = document.querySelector(".btn-next");
 const dropdownToggle = document.querySelector("button.dropdown-toggle");
+const dropdownToggleText = dropdownToggle.querySelector(".dropdown-toggle-text")
 const dropdownMenu = document.querySelector(".sort .options");
 const sortLists = document.querySelectorAll(".sort .options button");
 const dropdownMenuItems = Array.from(dropdownMenu.children);
-const arrowUp = document.querySelector(".fa-chevron-up");
-const arrowDown = document.querySelector(".fa-chevron-down");
+const arrowUp = document.querySelector(".chevron-up");
+const arrowDown = document.querySelector(".chevron-down");
 
 let isClicked = false;
 
@@ -197,6 +198,7 @@ function closeDropdownMenu() {
   dropdownMenu.style.display = "none";
   body.style.overflow = "auto";
   dropdownToggle.setAttribute("aria-expanded", "false");
+  btnSort.classList.remove("dropdown-opened");
 }
 function openDropdownMenu() {
   arrowUp.style.display = "block";
@@ -204,6 +206,7 @@ function openDropdownMenu() {
   dropdownMenu.style.display = "flex";
   body.style.overflow = "hidden";
   dropdownToggle.setAttribute("aria-expanded", "true");
+  btnSort.classList.add("dropdown-opened");
 }
 
 //////////////// ADD EVENTLISTENERS ////////////////////
@@ -325,7 +328,6 @@ function addEventHandlerLike(dataMedias, dataPhotographer) {
       mediaPreview.checkIsLiked();
       //update le total des likes
       displaySumLikes(dataPhotographer);
-      console.log(btnHeart);
     });
   });
 }
@@ -364,11 +366,9 @@ function sortByTitle(dataMedias) {
 //trier les médias en ordre avec le clavier
 let active = -1;
 document.addEventListener("keydown", (e) => {
-  // const isHidden = dropdownMenuItems[active] ? dropdownMenuItems[active].classList.contains("option--hidden") : 0;
 
   const isOpenedDropdown = dropdownMenu.style.display;
   const length = dropdownMenuItems.length - 1;
-  // console.log(length);
   if (isOpenedDropdown !== "flex") return;
 
   if (e.key === "ArrowDown") {
@@ -377,7 +377,6 @@ document.addEventListener("keydown", (e) => {
     } else if (active === length) {
       active = 0;
     }
-    // console.log(active);
     dropdownMenuItems[active].focus();
   } else if (e.key === "ArrowUp") {
     if (active > 0) {
@@ -408,7 +407,7 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
       const type = li.textContent.trim().toLowerCase();
 
       //1.remplacer sort type = type (pop, date, titre )
-      dropdownToggle.childNodes[0].data = li.textContent;
+      dropdownToggleText.childNodes[0].data = li.textContent;
       if (type === "popularité") sortByPopularity(dataMedias);
       if (type === "date") sortByDate(dataMedias);
       if (type === "titre") sortByTitle(dataMedias);
@@ -419,6 +418,7 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
         if (el === li) {
           el.classList.remove("option--display");
           el.classList.add("option--hidden");
+          el.querySelector("span").classList.remove("border-top");
           el.setAttribute("aria-selected", "true");
           dropdownToggle.setAttribute("aria-labelledby", `listboxLabel ${id}`);
           dropdownToggle.setAttribute("aria-activedescendant", `${id}`);
@@ -426,6 +426,7 @@ function addEventHandlerSort(dataMedias, dataPhotographer) {
         } else {
           el.classList.remove("option--hidden");
           el.classList.add("option--display");
+          el.querySelector("span").classList.add("border-top");
           el.setAttribute("aria-selected", "false");
         }
       });

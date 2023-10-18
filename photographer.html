@@ -20,7 +20,11 @@
   <body>
     <header>
       <a href="index.html">
-        <img src="assets/images/logo.png" class="logo" alt="logo cliquable pour retourner à la page d'accueil" />
+        <img
+          src="assets/images/logo.png"
+          class="logo"
+          alt="logo cliquable pour retourner à la page d'accueil"
+        />
       </a>
     </header>
     <main id="main">
@@ -44,9 +48,10 @@
               aria-owns="listbox-1 listbox-2 listbox-3"
               class="dropdown-toggle"
             >
-              Popularité
-              <i class="fa-solid fa-chevron-down"></i>
-              <i class="fa-solid fa-chevron-up"></i>
+              <div class="dropdown-toggle-text"> Popularité
+              <img class="chevron-down" src="assets/icons/chevron-down-svgrepo-com.svg" alt="chevron down">
+              <img class="chevron-up" src="assets/icons/chevron-up-svgrepo-com.svg" alt="chevron up">
+              </div>
             </button>
             <div role="listbox" class="options">
               <button
@@ -54,9 +59,11 @@
                 id="listbox-1"
                 aria-selected="true"
                 class="option--hidden"
-              >Popularité </button>
-              <button role="option" id="listbox-2">Date</button>
-              <button role="option" id="listbox-3">Titre</button>
+              >
+                <span>Popularité</span>
+              </button>
+              <button role="option" id="listbox-2"><span class="border-top">Date</span></button>
+              <button role="option" id="listbox-3"><span class="border-top">Titre</span></button>
             </div>
           </div>
         </div>
@@ -66,13 +73,14 @@
     </main>
     <div id="lightbox">
       <button class="btn-close-lightbox" aria-label="fermer le lightbox">
-        <i class="fa-solid fa-xmark"></i>
+        <img class="fa-xmark" src="assets/icons/close-bold-svgrepo-com.svg" alt="close">
       </button>
       <button class="btn-previous" aria-label="media precedent">
-        <i class="fa-solid fa-chevron-left"></i>
+        <img class="chevron-left" src="assets/icons/chevron-left-svgrepo-com.svg" alt="chevron left">
+
       </button>
       <button class="btn-next" aria-label="media suivant">
-        <i class="fa-solid fa-chevron-right"></i>
+        <img class="chevron-right" src="assets/icons/chevron-right-svgrepo-com.svg" alt="chevron right">
       </button>
 
       <div class="lightbox-content"></div>

@@ -76,6 +76,7 @@ function factory(mediaObj) {
         video._type = type;
         return video;
     } 
+    
     throw new Error ('type media not found');
     
 }
