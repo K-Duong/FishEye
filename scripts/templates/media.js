@@ -84,9 +84,7 @@ function mediaTemplate(data) {
       return lightboxContent.insertAdjacentHTML("beforeend", htmlImage);
     if (data.type === "video")
       {
-        // console.log("debug", data);
         return lightboxContent.insertAdjacentHTML("beforeend", htmlVideo)};
-    //TODO: case pour data = undefined
     throw new Error("media's type not found");
   }
 

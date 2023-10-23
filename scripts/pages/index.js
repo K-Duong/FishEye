@@ -10,7 +10,6 @@ function displayData(photographers) {
 
 async function init() {
   try {
- 
     const photographers = await getPhotographers(
       "data/photographers.json"
     );

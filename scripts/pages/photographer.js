@@ -117,7 +117,6 @@ function goToPrevMedia(dataMedias) {
   const target = document.querySelector(".lightbox-media");
 
   const idMedia = Number(target.dataset.id);
-  //TODO: if idMedia = NaN?
   const indexFound = findIndexEL(dataMedias, idMedia);
   console.log("media found", dataMedias[indexFound].type);
 

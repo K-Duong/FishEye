@@ -20,7 +20,7 @@ function displayModal() {
     "formulaire de contact au photographe"
   );
 
-  //3. désactiver le contenu arrière avec aria-hidden=true, et style overflow=hidden
+  //désactiver le contenu arrière 
   body.style.overflow = "hidden";
   header.setAttribute("aria-hidden", "true");
   main.setAttribute("aria-hidden", "true");
@@ -43,15 +43,15 @@ function closeModal() {
 //afficher le message d'erreur pour les inputs invalid
 function displayError(elDom, message){
   const inputEl = document.querySelector(elDom);
-  ///1.display block message d'erreur
   inputEl.style.display = "block";
-  ///2.afficher le contenu du message
   inputEl.innerHTML= message
 }
+
 function closeError(elDom){
   const inputEl = document.querySelector(elDom);
   inputEl.style.display = "none";
 }
+
 //function vérifier la validation des inputs
 function checkInputValid(inp, condition, pError, message) {
   if (condition) {
@@ -85,6 +85,7 @@ function checkMailValid() {
   return checkInputValid(inpMail, condition,".err-email", "Email doit être sous forme abc@xyz.com");
 }
 
+//check 1: events listener, quand l'utilisateur saisit une valeur 
 inpFName.addEventListener("change", () => {
   checkFNameValid();
 });
@@ -94,6 +95,7 @@ inpLName.addEventListener("change", () => {
 inpMail.addEventListener("change", () => {
   checkMailValid();
 });
+
 //check 2: quand l'utilisateur submit form
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -102,7 +104,6 @@ form.addEventListener("submit", (e) => {
     checkLNameValid(),
     checkMailValid(),
   ];
-  // console.log(inputs);
   const allValid = inputs.every((inp) => inp);
   if (allValid) {
     console.log("Données du form:");
@@ -118,6 +119,7 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+//fermer la modale avec Escape
 window.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     if (e.key === "Escape") {

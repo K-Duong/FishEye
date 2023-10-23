@@ -82,7 +82,6 @@ function photographerTemplate(data) {
 
     const sumPrice = document.createElement("h3");
     sumPrice.classList.add("sum-likes");
-    // sumPrice.textContent = price + "€/jour";
     const iconheart = document.createElement("i");
     iconheart.classList.add("fa-solid", "fa-heart");
 
