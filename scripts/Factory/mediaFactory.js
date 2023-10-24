@@ -36,6 +36,7 @@ class MediaFactory {
     get price() {
         return this._price;
     }
+    
 }
 
 class Video extends MediaFactory {
@@ -61,10 +62,47 @@ class Image extends MediaFactory {
  
 }
 
+async function mediaExist(url){
+    const pro = await fetch(url);
+    // console.log(pro);
+    // console.log(pro.ok);
+    if (pro.ok){
+        return true
+    }else{
+        throw new Error("url media doesn't existed");
+    }
+    // return
+}
+
 function factory(mediaObj) {
-    let type;
-   
-    if (mediaObj.image && mediaObj.image.length > 0) {
+    // try {
+    //     let type;
+    
+    // if (!mediaObj) {
+    //     throw new Error ('type media not found');
+    // }else{
+    //     if (mediaObj.image) {
+               
+               
+    //             type = "image";
+    //             const image = new Image(mediaObj);
+    //             image._type = type;
+    //             // console.log(image.content);
+    //             if(mediaExist(image.content));
+    //             console.log(image);
+    //             return image;
+    //         } 
+    //         if (mediaObj.video) {
+    //             type = "video";
+    //             const video = new Video(mediaObj);
+    //             video._type = type;
+    //             if(mediaExist(video.content));
+    //             return video;
+    //         } 
+    // }
+
+
+    if (mediaObj.image && mediaObj.image.length > 0) {     
         type = "image";
         const image = new Image(mediaObj);
         image._type = type;
@@ -78,5 +116,7 @@ function factory(mediaObj) {
     } 
     
     throw new Error ('type media not found');
-    
+    // }catch(e){
+    //     console.error(e)
+    // }
 }

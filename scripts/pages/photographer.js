@@ -33,7 +33,16 @@ async function getData(photographersJson, mediaJson) {
     // chercher les médias du photographe selon son id et retourner en objet du factory
     const mediaFound = mediaJson
       .filter((media) => media.photographerId === id)
-      .map((media) => factory(media));
+      .map((media) => {
+        try {
+          // const newArr = await factory(media);
+          // const res = await newArr.json();
+          // console.log(res);
+          return factory(media)
+        }catch(e){
+          console.error(e);
+        }
+      });
 
     //calculer la somme des likes des médias du photographe
     const mediaLikes = mediaFound
