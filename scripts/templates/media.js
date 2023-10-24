@@ -1,7 +1,7 @@
-function mediaTemplate(data) {
+const mediaTemplate = (data) => {
   // console.log(data);
 
-  function cardMedia() {
+  const cardMedia = () => {
     let media, source;
     const article = document.createElement("article");
     article.classList.add("media-infos");
@@ -64,7 +64,7 @@ function mediaTemplate(data) {
     return article;
   }
 
-  function addElLightbox() {
+  const addElLightbox = () => {
     const lightboxContent = document.querySelector(".lightbox-content");
     // console.log(data.type);
     const htmlImage = `
@@ -89,7 +89,7 @@ function mediaTemplate(data) {
   }
 
   //vérifier si le est déjà aimé
-  function checkIsLiked() {
+  const checkIsLiked = () => {
     const favorite = document.querySelector(`.favorite[data-id="${data.id}"]`);
     const heartEmp = favorite.querySelector(".fa-heart-empty");
     const heartFill = favorite.querySelector(".fa-heart-fill");

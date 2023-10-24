@@ -74,7 +74,7 @@ async function mediaExist(url){
     // return
 }
 
-function factory(mediaObj) {
+const factory = (mediaObj) => {
     // try {
     //     let type;
     

@@ -1,4 +1,4 @@
-function displayData(photographers) {
+const displayData = (photographers) => {
   const photographersSection = document.querySelector(".photographer_section");
 
   photographers.forEach((photographer) => {
@@ -8,7 +8,7 @@ function displayData(photographers) {
   });
 }
 
-async function init() {
+const initPageIndex = async () => {
   try {
     const photographers = await getPhotographers(
       "data/photographers.json"
@@ -20,6 +20,6 @@ async function init() {
     console.error(err);
   }
 }
-init();
+initPageIndex();
 
 

@@ -7,8 +7,8 @@ const inpLName = document.querySelector("#last-name");
 const inpMail = document.querySelector("#email");
 const message = document.querySelector("#message");
 
-function displayModal() {
-  init();
+const displayModal = () => {
+  initForm();
   modal.style.display = "flex";
   inpFName.focus();
 
@@ -26,7 +26,7 @@ function displayModal() {
   main.setAttribute("aria-hidden", "true");
 }
 
-function closeModal() {
+const closeModal = () => {
   modal.style.display = "none";
   form.reset();
 
@@ -41,19 +41,19 @@ function closeModal() {
 };
 
 //afficher le message d'erreur pour les inputs invalid
-function displayError(elDom, message){
+const displayError = (elDom, message) => {
   const inputEl = document.querySelector(elDom);
   inputEl.style.display = "block";
   inputEl.innerHTML= message
 }
 
-function closeError(elDom){
+const closeError = (elDom) => {
   const inputEl = document.querySelector(elDom);
   inputEl.style.display = "none";
 }
 
 //function vérifier la validation des inputs
-function checkInputValid(inp, condition, pError, message) {
+const checkInputValid = (inp, condition, pError, message) => {
   if (condition) {
     inp.classList.remove("input-error");
     closeError(pError);
@@ -65,21 +65,21 @@ function checkInputValid(inp, condition, pError, message) {
   }
 }
 
-function getCondition(input, regexFormat) {
+const getCondition = (input, regexFormat) => {
   const val = input.value.trim();
   return val.length > 0 && val.match(regexFormat) ? true : false;
 }
-function checkFNameValid() {
+const checkFNameValid = () => {
   const nameFormat = /^[a-zA-Z- ]*$/;
   const condition = getCondition(inpFName, nameFormat);
   return checkInputValid(inpFName, condition, ".err-fname","Veuillez entrer votre prénom avec au moins une lettre.");
 }
-function checkLNameValid() {
+const checkLNameValid = () => {
   const nameFormat = /^[a-zA-Z- ]*$/;
   const condition = getCondition(inpLName, nameFormat);
   return checkInputValid(inpLName, condition, ".err-lname","Veuillez entrer entrer votre nom avec au moins une lettre.");
 }
-function checkMailValid() {
+const checkMailValid = () => {
   const mailFormat = /[a-z0-9-._]+@[a-z0-9-_]+.[a-z]{2,4}/;
   const condition = getCondition(inpMail, mailFormat);
   return checkInputValid(inpMail, condition,".err-email", "Email doit être sous forme abc@xyz.com");
@@ -129,10 +129,10 @@ window.addEventListener("keydown", (e) => {
 })
 
 //reset form
-function init() {
+const initForm = () => {
     form.reset();
     const messagesError = document.querySelectorAll('form div p');
     inputs.forEach(inp=>inp.classList.remove("input-error"));
     messagesError.forEach(mes => mes.style.display="none")
 }
-init();
+initForm();

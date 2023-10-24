@@ -1,9 +1,9 @@
-function photographerTemplate(data) {
+const photographerTemplate = (data) => {
   const { city, country, id, name, portrait, price, tagline } = data;
 
   const picture = `assets/photographers/${portrait}`;
 
-  function getUserCardDOM() {
+  const getUserCardDOM = () => {
     //créer le lien qui contient image et le nom du photographe
     const link = document.createElement("a");
     const article = document.createElement("article");
@@ -42,7 +42,7 @@ function photographerTemplate(data) {
     return article;
   }
 
-  function cardPhotographer() {
+  const cardPhotographer = () => {
     const btnContact = document.querySelector(".contact_button");
 
     const photographInfo = document.createElement("div");
@@ -74,7 +74,7 @@ function photographerTemplate(data) {
     btnContact.after(imgContainer);
   }
 
-  function cardPrice() {
+  const cardPrice = () => {
     const main = document.querySelector("#main");
 
     const cardPrice = document.createElement("section");
@@ -93,7 +93,7 @@ function photographerTemplate(data) {
     main.appendChild(cardPrice);
   }
 
-  function nameForForm() {
+  const nameForForm = () => {
     const btnClose = document.querySelector(".btn-close");
     const h2 = document.createElement("h2");
     h2.textContent = "Contactez-moi " + name;

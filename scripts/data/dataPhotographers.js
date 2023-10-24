@@ -1,4 +1,4 @@
-async function getPhotographers(url) {
+const getPhotographers = async (url)=> {
   try {
     const api = await fetch(url);
     // console.log(api);
@@ -14,7 +14,7 @@ async function getPhotographers(url) {
   }
 }
 
-async function getMedia(url) {
+const getMedia = async (url) => {
   try {
     const api = await fetch(url);
     // console.log(api);

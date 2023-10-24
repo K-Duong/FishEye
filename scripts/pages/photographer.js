@@ -16,12 +16,13 @@ const dropdownMenuItems = Array.from(dropdownMenu.children);
 const arrowUp = document.querySelector(".chevron-up");
 const arrowDown = document.querySelector(".chevron-down");
 
+///variable pour gérer 
 let isClicked = false;
 
 
 
 //////////////ASYNC FUNCTION POUR RECUPERE LES DATAS DU PHOTOGRAPHE ET SES MEDIAS//////////
-async function getData(photographersJson, mediaJson) {
+getData = async (photographersJson, mediaJson) => {
   try {
     const id = getId();
 
@@ -58,7 +59,7 @@ async function getData(photographersJson, mediaJson) {
   }
 }
 //////////////LES FONCTIONS/////////////////
-function getId() {
+const getId = () => {
   let urlParams = new URLSearchParams(window.location.search);
   let url = window.location.href;
   //   console.log(urlParams.size > 0);
@@ -71,25 +72,25 @@ function getId() {
   }
 }
 
-function displaySumLikes(dataPhotographer) {
+const displaySumLikes = (dataPhotographer) => {
   const sumLikeCard = document.querySelector(".sum-likes");
   sumLikeCard.textContent = dataPhotographer.sumOfLikes;
   return;
 }
 
-function findMediaEL(dataMedias, idMedia) {
+const findMediaEL = (dataMedias, idMedia) => {
   const mediaFound = dataMedias.find((el) => el.id === idMedia);
   // console.log(mediaFound,indexFound);
   return mediaFound;
 }
 
-function findIndexEL(dataMedias, idMedia) {
+const findIndexEL = (dataMedias, idMedia) => {
   const indexFound = dataMedias.findIndex((el) => el.id === idMedia);
   // console.log(mediaFound,indexFound);
   return indexFound;
 }
 
-function openLightbox() {
+const openLightbox = () => {
   //1. activer display= flex du lightbox
   lightbox.style.display = "flex";
   //2. ajouter l'attribut role=dialogue in lightbox
@@ -109,7 +110,7 @@ function openLightbox() {
   //focus sur le btn close
   btnClose.focus();
 }
-function closeLightbox() {
+const closeLightbox = () => {
   lightbox.style.display = "none";
   lightbox.removeAttribute("role");
   lightbox.setAttribute("aria-hidden", "true");
@@ -121,13 +122,13 @@ function closeLightbox() {
   main.removeAttribute("aria-hidden");
 }
 
-function goToPrevMedia(dataMedias) {
+const goToPrevMedia = (dataMedias) => {
   let prevIndex;
   const target = document.querySelector(".lightbox-media");
 
   const idMedia = Number(target.dataset.id);
   const indexFound = findIndexEL(dataMedias, idMedia);
-  console.log("media found", dataMedias[indexFound].type);
+  // console.log("media found", dataMedias[indexFound].type);
 
   prevIndex = indexFound - 1;
   if (prevIndex === -1) {
@@ -140,7 +141,7 @@ function goToPrevMedia(dataMedias) {
   mediaPreview.addElLightbox();
 }
 
-function goToNextMedia(dataMedias) {
+const goToNextMedia = (dataMedias) => {
   let nextIndex;
   const target = document.querySelector(".lightbox-media");
   const idMedia = Number(target.dataset.id);
@@ -159,7 +160,7 @@ function goToNextMedia(dataMedias) {
 }
 
 //fonction pour afficher les cartes des médias du photographe
-function displayDataMedialEl(dataMedias) {
+const displayDataMedialEl = (dataMedias) => {
   //   const mediaContainer = document.querySelector(".result-medias");
   dataMedias.forEach((mediaEl) => {
     const mediaPreview = mediaTemplate(mediaEl);
@@ -169,7 +170,7 @@ function displayDataMedialEl(dataMedias) {
 }
 
 //fonction pour afficher les infos du photographer de la carte du photographe et l'encart du total des likes
-function displayData(dataPhotographer, dataMedias) {
+const displayData = (dataPhotographer, dataMedias) => {
   const photographer = photographerTemplate(dataPhotographer);
   photographer.cardPhotographer();
   photographer.cardPrice();
@@ -179,7 +180,7 @@ function displayData(dataPhotographer, dataMedias) {
   displaySumLikes(dataPhotographer);
 }
 
-function playVideo() {
+const playVideo = () => {
   let isPlayed = false;
   window.addEventListener("keydown", (e) => {
     if (e.key !== " ") return;
@@ -200,7 +201,7 @@ function playVideo() {
   });
 }
 
-function closeDropdownMenu() {
+const closeDropdownMenu = () => {
   arrowUp.style.display = "none";
   arrowDown.style.display = "block";
   dropdownMenu.style.display = "none";
@@ -208,7 +209,7 @@ function closeDropdownMenu() {
   dropdownToggle.setAttribute("aria-expanded", "false");
   btnSort.classList.remove("dropdown-opened");
 }
-function openDropdownMenu() {
+const openDropdownMenu = () => {
   arrowUp.style.display = "block";
   arrowDown.style.display = "none";
   dropdownMenu.style.display = "flex";
@@ -219,7 +220,7 @@ function openDropdownMenu() {
 
 //////////////// ADD EVENTLISTENERS ////////////////////
 //Ouvrir le lightbox
-function addEventHandlerOpenLightbox(dataMedias) {
+const addEventHandlerOpenLightbox = (dataMedias) => {
   const linkLightbox = document.querySelectorAll(".link-lightbox");
   // console.log(dataMedias);
 
@@ -241,11 +242,11 @@ function addEventHandlerOpenLightbox(dataMedias) {
 }
 //Fermer le lightbox
 ////1.btn close
-function addEventHandlerCloseLightbox() {
+const addEventHandlerCloseLightbox = () => {
   btnClose.addEventListener("click", closeLightbox);
 }
 ////2. keydown escape
-function addEventHandlerEscape() {
+const addEventHandlerEscape = () => {
   window.addEventListener("keydown", (e) => {
     if (lightbox.style.display === "none") return;
     if (lightbox.style.display === "flex") {
@@ -261,13 +262,13 @@ function addEventHandlerEscape() {
 
 //Retourner au média précédent
 ////1.btn précédent
-function addEventHandlerPreviousLightBox(dataMedias) {
+const addEventHandlerPreviousLightBox = (dataMedias) => {
   btnPrev.addEventListener("click", function () {
     goToPrevMedia(dataMedias);
   });
 }
 ////2.Arrow left
-function addEventListenerArrowLeft(dataMedias) {
+const addEventListenerArrowLeft = (dataMedias) => {
   window.addEventListener("keydown", function (e) {
     if (lightbox.style.display === "none") return;
     if (lightbox.style.display === "flex") {
@@ -282,13 +283,13 @@ function addEventListenerArrowLeft(dataMedias) {
 
 //Aller vers le media suivant
 ////1.btn suivant
-function addEventHandlerNextLightBox(dataMedias) {
+const addEventHandlerNextLightBox = (dataMedias) => {
   btnNext.addEventListener("click", function (e) {
     goToNextMedia(dataMedias);
   });
 }
 ////2.Arrow right
-function addEventListenerArrowRight(dataMedias) {
+const addEventListenerArrowRight = (dataMedias) => {
   window.addEventListener("keydown", function (e) {
     if (lightbox.style.display === "none") return;
     if (lightbox.style.display === "flex") {
@@ -301,7 +302,7 @@ function addEventListenerArrowRight(dataMedias) {
   });
 }
 
-function addEventHandlerLike(dataMedias, dataPhotographer) {
+const addEventHandlerLike = (dataMedias, dataPhotographer) => {
   const favorites = document.querySelectorAll(".favorite");
 
   favorites.forEach((fav) => {
@@ -309,7 +310,6 @@ function addEventHandlerLike(dataMedias, dataPhotographer) {
     const id = Number(fav.dataset.id);
     const mediaFound = findMediaEL(dataMedias, id);
     const mediaPreview = mediaTemplate(mediaFound);
-    let likes = mediaFound.likes;
 
     fav.addEventListener("click", function increaseLike(e) {
       const target = e.currentTarget;
@@ -318,29 +318,29 @@ function addEventHandlerLike(dataMedias, dataPhotographer) {
       //guard clause
       if (!target) return;
       if (mediaFound.isLiked) {
-        likes--;
+        mediaFound.likes--;
         dataPhotographer.sumOfLikes--;
-        mediaFound.likes = likes;
         btnHeart.setAttribute("aria-label", "pas encore aimé");
       }
 
       if (!mediaFound.isLiked) {
-        likes++;
+        mediaFound.likes++
         dataPhotographer.sumOfLikes++;
-        mediaFound.likes = likes;
         btnHeart.setAttribute("aria-label", "déjà aimer");
       }
       mediaFound.isLiked = !mediaFound.isLiked;
       num.textContent = mediaFound.likes;
+
       //changer le icon coeur adapté
       mediaPreview.checkIsLiked();
+
       //update le total des likes
       displaySumLikes(dataPhotographer);
     });
   });
 }
 
-function sortByPopularity(dataMedias) {
+const sortByPopularity = (dataMedias) => {
   dataMedias.sort((media1, media2) => {
     media1 = media1.likes;
     media2 = media2.likes;
@@ -350,7 +350,7 @@ function sortByPopularity(dataMedias) {
     return 0;
   });
 }
-function sortByDate(dataMedias) {
+const sortByDate = (dataMedias) => {
   dataMedias.sort((media1, media2) => {
     media1 = new Date(media1.date);
     media2 = new Date(media2.date);
@@ -360,7 +360,7 @@ function sortByDate(dataMedias) {
     return 0;
   });
 }
-function sortByTitle(dataMedias) {
+const sortByTitle = (dataMedias) => {
   dataMedias.sort((media1, media2) => {
     media1 = media1.title.toLowerCase();
     media2 = media2.title.toLowerCase();
@@ -409,7 +409,7 @@ dropdownToggle.addEventListener("click", (e) => {
   isClicked = !isClicked;
 });
 
-function addEventHandlerSort(dataMedias, dataPhotographer) {
+const addEventHandlerSort = (dataMedias, dataPhotographer) => {
   sortLists.forEach((li) => {
     li.addEventListener("click", () => {
       const type = li.textContent.trim().toLowerCase();
@@ -463,7 +463,7 @@ document.addEventListener("click", (e) => {
 });
 
 /////////////////INITIALISER L'APP//////////////////
-async function init() {
+const initPagePhographer = async () => {
   try {
     const photographersJson = await getPhotographers("data/photographers.json");
 
@@ -496,4 +496,4 @@ async function init() {
     console.error(err);
   }
 }
-init();
+initPagePhographer();
