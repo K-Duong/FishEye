@@ -75,33 +75,6 @@ async function mediaExist(url){
 }
 
 const factory = (mediaObj) => {
-    // try {
-    //     let type;
-    
-    // if (!mediaObj) {
-    //     throw new Error ('type media not found');
-    // }else{
-    //     if (mediaObj.image) {
-               
-               
-    //             type = "image";
-    //             const image = new Image(mediaObj);
-    //             image._type = type;
-    //             // console.log(image.content);
-    //             if(mediaExist(image.content));
-    //             console.log(image);
-    //             return image;
-    //         } 
-    //         if (mediaObj.video) {
-    //             type = "video";
-    //             const video = new Video(mediaObj);
-    //             video._type = type;
-    //             if(mediaExist(video.content));
-    //             return video;
-    //         } 
-    // }
-
-
     if (mediaObj.image && mediaObj.image.length > 0) {     
         type = "image";
         const image = new Image(mediaObj);
@@ -114,9 +87,6 @@ const factory = (mediaObj) => {
         video._type = type;
         return video;
     } 
-    
     throw new Error ('type media not found');
-    // }catch(e){
-    //     console.error(e)
-    // }
+
 }

@@ -36,9 +36,6 @@ getData = async (photographersJson, mediaJson) => {
       .filter((media) => media.photographerId === id)
       .map((media) => {
         try {
-          // const newArr = await factory(media);
-          // const res = await newArr.json();
-          // console.log(res);
           return factory(media)
         }catch(e){
           console.error(e);
@@ -62,7 +59,6 @@ getData = async (photographersJson, mediaJson) => {
 const getId = () => {
   let urlParams = new URLSearchParams(window.location.search);
   let url = window.location.href;
-  //   console.log(urlParams.size > 0);
   if (urlParams.size > 0) {
     const id = Number(urlParams.get("id"));
     return id;
@@ -80,13 +76,11 @@ const displaySumLikes = (dataPhotographer) => {
 
 const findMediaEL = (dataMedias, idMedia) => {
   const mediaFound = dataMedias.find((el) => el.id === idMedia);
-  // console.log(mediaFound,indexFound);
   return mediaFound;
 }
 
 const findIndexEL = (dataMedias, idMedia) => {
   const indexFound = dataMedias.findIndex((el) => el.id === idMedia);
-  // console.log(mediaFound,indexFound);
   return indexFound;
 }
 
@@ -128,7 +122,6 @@ const goToPrevMedia = (dataMedias) => {
 
   const idMedia = Number(target.dataset.id);
   const indexFound = findIndexEL(dataMedias, idMedia);
-  // console.log("media found", dataMedias[indexFound].type);
 
   prevIndex = indexFound - 1;
   if (prevIndex === -1) {
@@ -145,7 +138,6 @@ const goToNextMedia = (dataMedias) => {
   let nextIndex;
   const target = document.querySelector(".lightbox-media");
   const idMedia = Number(target.dataset.id);
-  // console.log(idMedia);
 
   const indexFound = findIndexEL(dataMedias, idMedia);
   nextIndex = indexFound + 1;
@@ -153,7 +145,6 @@ const goToNextMedia = (dataMedias) => {
     nextIndex = 0;
   }
   const mediaNext = dataMedias[nextIndex];
-  // console.log(mediaNext);
 
   const mediaPreview = mediaTemplate(mediaNext);
   mediaPreview.addElLightbox();
@@ -222,7 +213,6 @@ const openDropdownMenu = () => {
 //Ouvrir le lightbox
 const addEventHandlerOpenLightbox = (dataMedias) => {
   const linkLightbox = document.querySelectorAll(".link-lightbox");
-  // console.log(dataMedias);
 
   linkLightbox.forEach((link) => {
     link.addEventListener("click", function (e) {
@@ -230,7 +220,6 @@ const addEventHandlerOpenLightbox = (dataMedias) => {
       const idMedia = Number(target.dataset.id);
 
       const mediaFound = findMediaEL(dataMedias, idMedia);
-      // console.log("media found", mediaFound);
 
       const mediaPreview = mediaTemplate(mediaFound);
       mediaPreview.addElLightbox();
@@ -251,7 +240,6 @@ const addEventHandlerEscape = () => {
     if (lightbox.style.display === "none") return;
     if (lightbox.style.display === "flex") {
       if (e.key === "Escape") {
-        // console.log(e.key);
         closeLightbox();
       } else {
         return;

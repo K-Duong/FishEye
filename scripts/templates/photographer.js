@@ -37,7 +37,6 @@ const photographerTemplate = (data) => {
 
     descriptionBox.append(h3, p1, p2);
     article.append(link, descriptionBox);
-    // article.focus(); 
 
     return article;
   }
@@ -115,4 +114,3 @@ const photographerTemplate = (data) => {
   };
 }
 
-/////

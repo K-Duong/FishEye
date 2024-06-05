@@ -15,7 +15,6 @@ const mediaTemplate = (data) => {
 
     if (data.type === "video") {
       media = document.createElement("video");
-      // media.setAttribute("alt", `Vidéo de ${data.title}`);
       source = document.createElement("source");
       source.setAttribute("src", `${data.content}`);
       media.appendChild(source);
@@ -32,7 +31,6 @@ const mediaTemplate = (data) => {
     //description et favorite icons
     const description = document.createElement("div");
     description.classList.add("media-description");
-    //  
     const nameMedia = document.createElement("p");
     nameMedia.classList.add("media-name");
     
@@ -66,7 +64,6 @@ const mediaTemplate = (data) => {
 
   const addElLightbox = () => {
     const lightboxContent = document.querySelector(".lightbox-content");
-    // console.log(data.type);
     const htmlImage = `
         <img class="lightbox-media lightbox-image"src="${data.content}" alt="Photo ${data.title}" data-id="${data.id}">
         <h3 class="img-title">${data.title}</h3>
