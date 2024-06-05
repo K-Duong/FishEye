@@ -1,6 +1,15 @@
-# Base de code du projet P6 - Parcours Front-end
+# Fish Eye
+![logo Fish Eye](https://github.com/K-Duong/blob/FishEye_v1.git/assets/favicon.png?raw=true)
 
-## Démarrer le projet
+## Présentation 
 
-Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
+Le projet contient d'un site web pour une plateforme d'artistes. L'accent sera mis sur la création d'une application web accessible, modulaire et utilisant des design patterns en JavaScript.
+
+## Objectifs
+Les objectifs du projets sont : 
+-  intégrer diverses fonctionnalités telles que la récupération et l'affichage des données, la navigation entre les pages des photographes, une modale de contact, une LightBox pour les médias, et la gestion des likes.
+- assurer l'accessibilité du site
+
+## Démonstration du site
+La version de démonstration est accessible via [ce lien](https://fisheye-k-duong.netlify.app/)
 
