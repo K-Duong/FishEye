@@ -1,5 +1,4 @@
 # Fish Eye
-![logo Fish Eye](https://github.com/K-Duong/FishEye_v1.git/assets/favicon.png?raw=true)
 
 ## Présentation 
 
